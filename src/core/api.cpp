@@ -100,6 +100,7 @@
 #include "shapes/triangle.h"
 #include "shapes/plymesh.h"
 #include "shapes/snowman.h"
+#include "shapes/badminton.h"
 #include "textures/bilerp.h"
 #include "textures/checkerboard.h"
 #include "textures/constant.h"
@@ -452,6 +453,9 @@ std::vector<std::shared_ptr<Shape>> MakeShapes(const std::string &name,
                                    reverseOrientation, paramSet);
     else if (name == "snowman")
         s = CreateSnowManShape(object2world, world2object, reverseOrientation,
+                              paramSet);
+    else if (name == "badminton")
+        s = CreateBadmintonShape(object2world, world2object, reverseOrientation,
                               paramSet);
     if (s != nullptr) shapes.push_back(s);
 

@@ -20,9 +20,9 @@ SnowMan::SnowMan(const Transform *ObjectToWorld, const Transform *WorldToObject,
             posB(posB),
             phiMax(Radians(Clamp(phiMax, 0, 360))),
             object2worldHead((*ObjectToWorld) * Translate(Vector3f(posH.x, posH.y, posH.z))),
-            world2objectHead((*WorldToObject) * Inverse(Translate(Vector3f(posH.x, posH.y, posH.z)))),
+            world2objectHead(Inverse(Translate(Vector3f(posH.x, posH.y, posH.z))) * (*WorldToObject)),
             object2worldBody((*ObjectToWorld) * Translate(Vector3f(posB.x, posB.y, posB.z))),
-            world2objectBody((*WorldToObject) * Inverse(Translate(Vector3f(posB.x, posB.y, posB.z)))),
+            world2objectBody(Inverse(Translate(Vector3f(posB.x, posB.y, posB.z))) * (*WorldToObject)),
             sphereHead(&object2worldHead, &world2objectHead, false, radiusH, -radiusH, radiusH, phiMax),  // 360.f
             sphereBody(&object2worldBody, &world2objectBody, false, radiusB, -radiusB, radiusB, phiMax){}
             
