@@ -63,6 +63,8 @@
         "iomanip": "cpp",
         "unordered_set": "cpp",
         "xlocmon": "cpp",
-        "xloctime": "cpp"
+        "xloctime": "cpp",
+        "numeric": "cpp",
+        "set": "cpp"
     }
 }

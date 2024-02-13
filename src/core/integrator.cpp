@@ -42,6 +42,7 @@
 #include "progressreporter.h"
 #include "camera.h"
 #include "stats.h"
+#include "globals.h"
 
 namespace pbrt {
 
@@ -235,6 +236,14 @@ void SamplerIntegrator::Render(const Scene &scene) {
     const int tileSize = 16;
     Point2i nTiles((sampleExtent.x + tileSize - 1) / tileSize,
                    (sampleExtent.y + tileSize - 1) / tileSize);
+
+    nTiles_x = nTiles.x;
+    nTiles_y = nTiles.y;
+    for (int ii = 0; ii < nTiles.y; ii ++){
+        for (int jj = 0; jj < nTiles.x; jj ++){
+            tile_counter.push_back(0);
+        }
+    }
     ProgressReporter reporter(nTiles.x * nTiles.y, "Rendering");
     {
         ParallelFor2D([&](Point2i tile) {
@@ -288,7 +297,7 @@ void SamplerIntegrator::Render(const Scene &scene) {
 
                     // Evaluate radiance along camera ray
                     Spectrum L(0.f);
-                    if (rayWeight > 0) L = Li(ray, scene, *tileSampler, arena);
+                    if (rayWeight > 0) L = Li(ray, scene, *tileSampler, arena, 0, seed);
 
                     // Issue warning if unexpected radiance value returned
                     if (L.HasNaNs()) {
@@ -329,7 +338,9 @@ void SamplerIntegrator::Render(const Scene &scene) {
             // Merge image tile into _Film_
             camera->film->MergeFilmTile(std::move(filmTile));
             reporter.Update();
+            // std::cout<< tile_counter << std::endl;
         }, nTiles);
+        // std::cout<< nTiles << std::endl;
         reporter.Done();
     }
     LOG(INFO) << "Rendering finished";

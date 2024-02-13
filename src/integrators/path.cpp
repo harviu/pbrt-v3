@@ -39,6 +39,8 @@
 #include "paramset.h"
 #include "scene.h"
 #include "stats.h"
+#include <iostream>
+#include "globals.h"
 
 namespace pbrt {
 
@@ -63,12 +65,13 @@ void PathIntegrator::Preprocess(const Scene &scene, Sampler &sampler) {
 
 Spectrum PathIntegrator::Li(const RayDifferential &r, const Scene &scene,
                             Sampler &sampler, MemoryArena &arena,
-                            int depth) const {
+                            int depth, int tile_id) const {
     ProfilePhase p(Prof::SamplerIntegratorLi);
     Spectrum L(0.f), beta(1.f);
     RayDifferential ray(r);
     bool specularBounce = false;
     int bounces;
+    // std::cout << tile_id << std::endl;
     // Added after book publication: etaScale tracks the accumulated effect
     // of radiance scaling due to rays passing through refractive
     // boundaries (see the derivation on p. 527 of the third edition). We
@@ -86,6 +89,9 @@ Spectrum PathIntegrator::Li(const RayDifferential &r, const Scene &scene,
         // Intersect _ray_ with scene and store intersection in _isect_
         SurfaceInteraction isect;
         bool foundIntersection = scene.Intersect(ray, &isect);
+        if (foundIntersection){
+            tile_counter[tile_id] ++;
+        }
 
         // Possibly add emitted light at intersection
         if (bounces == 0 || specularBounce) {

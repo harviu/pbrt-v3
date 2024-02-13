@@ -175,6 +175,16 @@ int main(int argc, char *argv[]) {
     std::cout<< "SnowMan Intersection Number: " << lab2_object_rays <<std::endl;
     std::cout<< "SnowMan Head Intersection Number: " << lab2_object1_rays <<std::endl;
     std::cout<< "SnowMan Body Intersection Number: " << lab2_object2_rays <<std::endl;
+    std::cout<< "Tile Intersection: " << std::endl;
+    int tile_total=0;
+    for (int ii = 0; ii < nTiles_y; ii ++){
+        for (int jj = 0; jj < nTiles_x; jj ++){
+            std::cout<< tile_counter[nTiles_x * ii + jj] << "\t";
+            tile_total += tile_counter[nTiles_x * ii + jj];
+        }
+        std::cout << std::endl;
+    }
+    std::cout<< "Tile Total: " << tile_total<< std::endl;
     pbrtCleanup();
     return 0;
 }
