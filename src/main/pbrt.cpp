@@ -36,7 +36,9 @@
 #include "api.h"
 #include "parser.h"
 #include "parallel.h"
+#include "globals.h"
 #include <glog/logging.h>
+#include <iostream>
 
 using namespace pbrt;
 
@@ -168,6 +170,8 @@ int main(int argc, char *argv[]) {
         for (const std::string &f : filenames)
             pbrtParseFile(f);
     }
+    std::cout<< "Total number of rays: " << lab2_total_rays <<std::endl;
+    std::cout<< "Ray Intersecting Bounding Boxes: " << lab2_bbox_rays <<std::endl;
     pbrtCleanup();
     return 0;
 }

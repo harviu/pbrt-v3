@@ -34,6 +34,7 @@
 // core/scene.cpp*
 #include "scene.h"
 #include "stats.h"
+#include "globals.h"
 
 namespace pbrt {
 
@@ -45,7 +46,12 @@ STAT_COUNTER("Intersections/Shadow ray intersection tests", nShadowTests);
 bool Scene::Intersect(const Ray &ray, SurfaceInteraction *isect) const {
     ++nIntersectionTests;
     DCHECK_NE(ray.d, Vector3f(0,0,0));
-    return aggregate->Intersect(ray, isect);
+    lab2_total_rays ++;
+    if (aggregate->Intersect(ray, isect)){
+      lab2_bbox_rays ++;
+      return true;
+    }
+    else return false;
 }
 
 bool Scene::IntersectP(const Ray &ray) const {

@@ -6,7 +6,7 @@
 #include "paramset.h"
 #include "efloat.h"
 #include "stats.h"
-#include <iostream> // for print
+// #include <iostream> // for print
 
 namespace pbrt {
             
