@@ -15,7 +15,6 @@ namespace pbrt {
     extern std::atomic<int> lab2_object_rays ;
     extern std::atomic<int> lab2_object1_rays ;
     extern std::atomic<int> lab2_object2_rays ;
-    extern std::atomic<int> lab2_object3_rays ;
 }
 
 #endif  // PBRT_LAB_2_GLOBAL_H
