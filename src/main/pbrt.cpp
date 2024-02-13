@@ -171,7 +171,10 @@ int main(int argc, char *argv[]) {
             pbrtParseFile(f);
     }
     std::cout<< "Total number of rays: " << lab2_total_rays <<std::endl;
-    std::cout<< "Ray Intersecting Bounding Boxes: " << lab2_bbox_rays <<std::endl;
+    std::cout<< "Number of Rays Intersecting Bounding Boxes: " << lab2_bbox_rays <<std::endl;
+    std::cout<< "SnowMan Intersection Number: " << lab2_object_rays <<std::endl;
+    std::cout<< "SnowMan Head Intersection Number: " << lab2_object1_rays <<std::endl;
+    std::cout<< "SnowMan Body Intersection Number: " << lab2_object2_rays <<std::endl;
     pbrtCleanup();
     return 0;
 }
