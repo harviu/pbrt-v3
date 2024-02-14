@@ -38,6 +38,7 @@
 #include "stats.h"
 #include "parallel.h"
 #include <algorithm>
+#include "globals.h"
 
 namespace pbrt {
 
@@ -660,6 +661,7 @@ int BVHAccel::flattenBVHTree(BVHBuildNode *node, int *offset) {
 BVHAccel::~BVHAccel() { FreeAligned(nodes); }
 
 bool BVHAccel::Intersect(const Ray &ray, SurfaceInteraction *isect) const {
+    lab2_total_rays++;
     if (!nodes) return false;
     ProfilePhase p(Prof::AccelIntersect);
     bool hit = false;
@@ -673,11 +675,15 @@ bool BVHAccel::Intersect(const Ray &ray, SurfaceInteraction *isect) const {
         // Check ray against BVH node
         if (node->bounds.IntersectP(ray, invDir, dirIsNeg)) {
             if (node->nPrimitives > 0) {
+                lab2_bbox_rays++;
                 // Intersect ray with primitives in leaf BVH node
                 for (int i = 0; i < node->nPrimitives; ++i)
                     if (primitives[node->primitivesOffset + i]->Intersect(
                             ray, isect))
-                        hit = true;
+                        {
+                            lab2_object_rays++;
+                            hit = true;
+                        }
                 if (toVisitOffset == 0) break;
                 currentNodeIndex = nodesToVisit[--toVisitOffset];
             } else {

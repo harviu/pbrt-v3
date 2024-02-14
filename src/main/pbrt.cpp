@@ -172,9 +172,10 @@ int main(int argc, char *argv[]) {
     }
     std::cout<< "Total number of rays: " << lab2_total_rays <<std::endl;
     std::cout<< "Number of Rays Intersecting Bounding Boxes: " << lab2_bbox_rays <<std::endl;
-    std::cout<< "SnowMan Intersection Number: " << lab2_object_rays <<std::endl;
-    std::cout<< "SnowMan Head Intersection Number: " << lab2_object1_rays <<std::endl;
-    std::cout<< "SnowMan Body Intersection Number: " << lab2_object2_rays <<std::endl;
+    std::cout<< "Object Intersection Number: " << lab2_object_rays <<std::endl;
+    std::cout<< "SnowMan Intersection Number: " << lab2_snowman_rays <<std::endl;
+    std::cout<< "SnowMan Head Intersection Number: " << lab2_head_rays <<std::endl;
+    std::cout<< "SnowMan Body Intersection Number: " << lab2_body_rays <<std::endl;
     std::cout<< "Tile Intersection: " << std::endl;
     int tile_total=0;
     for (int ii = 0; ii < nTiles_y; ii ++){

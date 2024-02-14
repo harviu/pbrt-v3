@@ -50,33 +50,32 @@ bool SnowMan::Intersect(const Ray &r, Float *tHit, SurfaceInteraction *isect,
     Float tHit1, tHit2;
     bool hit1 = sphereHead.Intersect(r, &tHit1, &isect1, testAlphaTexture);
     bool hit2 = sphereBody.Intersect(r, &tHit2, &isect2, testAlphaTexture);
-    // lab2_object_rays ++;
     
     // union
     if (hit1) {
-        lab2_object_rays ++;
+        lab2_snowman_rays ++;
         *isect = isect1;
         *tHit = tHit1;
         if (hit2){
             if (tHit2 < tHit1){
-                lab2_object2_rays ++;
+                lab2_head_rays ++;
                 *isect = isect2;
                 *tHit = tHit2;
             }
             else {
-                lab2_object1_rays ++;
+                lab2_body_rays ++;
             }
         }
         else {
-            lab2_object1_rays ++;
+            lab2_body_rays ++;
         }
         return true;
     }
     else if (hit2) {
-        lab2_object_rays ++;
+        lab2_snowman_rays ++;
         *isect = isect2;
         *tHit = tHit2;
-        lab2_object2_rays ++;
+        lab2_head_rays ++;
         return true;
     }
     return false;

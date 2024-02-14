@@ -44,14 +44,8 @@ STAT_COUNTER("Intersections/Shadow ray intersection tests", nShadowTests);
 
 // Scene Method Definitions
 bool Scene::Intersect(const Ray &ray, SurfaceInteraction *isect) const {
-    ++nIntersectionTests;
     DCHECK_NE(ray.d, Vector3f(0,0,0));
-    lab2_total_rays ++;
-    if (aggregate->Intersect(ray, isect)){
-      lab2_bbox_rays ++;
-      return true;
-    }
-    else return false;
+    return aggregate->Intersect(ray, isect);
 }
 
 bool Scene::IntersectP(const Ray &ray) const {

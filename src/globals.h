@@ -14,8 +14,9 @@ namespace pbrt {
     extern std::atomic<int> lab2_total_rays ;
     extern std::atomic<int> lab2_bbox_rays ;
     extern std::atomic<int> lab2_object_rays ;
-    extern std::atomic<int> lab2_object1_rays ;
-    extern std::atomic<int> lab2_object2_rays ;
+    extern std::atomic<int> lab2_snowman_rays ;
+    extern std::atomic<int> lab2_head_rays ;
+    extern std::atomic<int> lab2_body_rays ;
     extern std::vector<int> tile_counter;
     extern int nTiles_x, nTiles_y;
 }
