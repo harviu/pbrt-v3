@@ -210,6 +210,7 @@ class BSDF {
     static PBRT_CONSTEXPR int MaxBxDFs = 8;
     BxDF *bxdfs[MaxBxDFs];
     friend class MixMaterial;
+    friend class CompositeMaterial;
 };
 
 inline std::ostream &operator<<(std::ostream &os, const BSDF &bsdf) {

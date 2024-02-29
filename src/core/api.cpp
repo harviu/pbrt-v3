@@ -80,6 +80,7 @@
 #include "materials/substrate.h"
 #include "materials/subsurface.h"
 #include "materials/translucent.h"
+#include "materials/commat.h"
 #include "materials/uber.h"
 #include "samplers/halton.h"
 #include "samplers/maxmin.h"
@@ -582,7 +583,30 @@ std::shared_ptr<Material> MakeMaterial(const std::string &name,
             mat2 = (*graphicsState.namedMaterials)[m2]->material;
 
         material = CreateMixMaterial(mp, mat1, mat2);
-    } else if (name == "metal")
+    } 
+    else if (name == "comp") {
+        std::string m1 = mp.FindString("namedmaterial1", "");
+        std::string m2 = mp.FindString("namedmaterial2", "");
+        std::shared_ptr<Material> mat1, mat2;
+        if (graphicsState.namedMaterials->find(m1) ==
+            graphicsState.namedMaterials->end()) {
+            Error("Named material \"%s\" undefined.  Using \"matte\"",
+                  m1.c_str());
+            mat1 = MakeMaterial("matte", mp);
+        } else
+            mat1 = (*graphicsState.namedMaterials)[m1]->material;
+
+        if (graphicsState.namedMaterials->find(m2) ==
+            graphicsState.namedMaterials->end()) {
+            Error("Named material \"%s\" undefined.  Using \"matte\"",
+                  m2.c_str());
+            mat2 = MakeMaterial("matte", mp);
+        } else
+            mat2 = (*graphicsState.namedMaterials)[m2]->material;
+
+        material = CreateCompositeMaterial(mp, mat1, mat2);
+    } 
+    else if (name == "metal")
         material = CreateMetalMaterial(mp);
     else if (name == "substrate")
         material = CreateSubstrateMaterial(mp);

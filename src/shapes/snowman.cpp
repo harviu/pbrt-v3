@@ -55,11 +55,13 @@ bool SnowMan::Intersect(const Ray &r, Float *tHit, SurfaceInteraction *isect,
     if (hit1) {
         lab2_snowman_rays ++;
         *isect = isect1;
+        isect->faceIndex = 1;
         *tHit = tHit1;
         if (hit2){
             if (tHit2 < tHit1){
                 lab2_head_rays ++;
                 *isect = isect2;
+                isect->faceIndex = 2;
                 *tHit = tHit2;
             }
             else {
@@ -74,6 +76,7 @@ bool SnowMan::Intersect(const Ray &r, Float *tHit, SurfaceInteraction *isect,
     else if (hit2) {
         lab2_snowman_rays ++;
         *isect = isect2;
+        isect->faceIndex = 2;
         *tHit = tHit2;
         lab2_head_rays ++;
         return true;
