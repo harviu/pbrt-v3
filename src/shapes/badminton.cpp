@@ -45,12 +45,14 @@ bool Badminton::Intersect(const Ray &r, Float *tHit, SurfaceInteraction *isect,
 
         case 1:
             *isect = isect1;
+            isect->faceIndex = 1;
             *tHit = tHit1;
             return true;
             break;
 
         case 2:
             *isect = isect2;
+            isect->faceIndex = 1;
             *tHit = tHit2;
             return true;
             break;
@@ -58,9 +60,11 @@ bool Badminton::Intersect(const Ray &r, Float *tHit, SurfaceInteraction *isect,
         case 3:
             if (tHit2 < tHit1){
                 *isect = isect2;
+                isect->faceIndex = 1;
                 *tHit = tHit2;
             } else {
                 *isect = isect1;
+                isect->faceIndex = 1;   
                 *tHit = tHit1;
             }
             return true;
@@ -68,6 +72,7 @@ bool Badminton::Intersect(const Ray &r, Float *tHit, SurfaceInteraction *isect,
 
         case 4:
             *isect = isect3;
+            isect->faceIndex = 2; 
             *tHit = tHit3;
             return true;
             break;
@@ -75,9 +80,11 @@ bool Badminton::Intersect(const Ray &r, Float *tHit, SurfaceInteraction *isect,
         case 5:
             if (tHit3 < tHit1){
                 *isect = isect3;
+                isect->faceIndex = 2; 
                 *tHit = tHit3;
             } else {
                 *isect = isect1;
+                isect->faceIndex = 1; 
                 *tHit = tHit1;
             }
             return true;
@@ -86,9 +93,11 @@ bool Badminton::Intersect(const Ray &r, Float *tHit, SurfaceInteraction *isect,
         case 6:
             if (tHit3 < tHit2){
                 *isect = isect3;
+                isect->faceIndex = 2; 
                 *tHit = tHit3;
             } else {
                 *isect = isect2;
+                isect->faceIndex = 1; 
                 *tHit = tHit2;
             }
             return true;
@@ -97,12 +106,15 @@ bool Badminton::Intersect(const Ray &r, Float *tHit, SurfaceInteraction *isect,
         case 7:
             if (tHit3 <= tHit2 && tHit3 <= tHit1){
                 *isect = isect3;
+                isect->faceIndex = 2; 
                 *tHit = tHit3;
             } else if (tHit2 <= tHit3 && tHit2 <= tHit1){
                 *isect = isect2;
+                isect->faceIndex = 1; 
                 *tHit = tHit2;
             } else {
                 *isect = isect1;
+                isect->faceIndex = 1; 
                 *tHit = tHit1;
             }
             return true;
