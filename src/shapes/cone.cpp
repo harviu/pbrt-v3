@@ -203,8 +203,23 @@ Float Cone::Area() const {
 }
 
 Interaction Cone::Sample(const Point2f &u, Float *pdf) const {
-    LOG(FATAL) << "Cone::Sample not implemented.";
-    return Interaction();
+    // LOG(FATAL) << "Cone::Sample not implemented.";
+    float h, r, t;
+    h = (float)(height * sqrt(u[0]));
+    r = (float)(radius/height) * h;
+    t = 2* Pi * u[1];
+    Point3f pObj;
+    pObj.x = r * cos(t);
+    pObj.y = r * sin(t);
+    pObj.z = h;
+    Interaction it;
+    it.n = Normalize((*ObjectToWorld)(Normal3f(pObj.x * height / radius, pObj.y * height / radius, radius/height)));
+    if (reverseOrientation) it.n *= -1;
+    // Reproject _pObj_ to sphere surface and compute _pObjError_
+    Vector3f pObjError = gamma(5) * Abs((Vector3f)pObj);
+    it.p = (*ObjectToWorld)(pObj, pObjError, &it.pError);
+    *pdf = 1 / Area();
+    return it;
 }
 
 std::shared_ptr<Cone> CreateConeShape(const Transform *o2w,

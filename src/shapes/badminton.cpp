@@ -7,6 +7,7 @@
 #include "efloat.h"
 #include "stats.h"
 // #include <iostream> // for print
+#include <cstdlib>
 
 namespace pbrt {
             
@@ -143,8 +144,21 @@ Float Badminton::Area() const {
 }
 
 Interaction Badminton::Sample(const Point2f &u, Float *pdf) const {
-    LOG(FATAL) << "Badminton::Sample not implemented.";
-    return Interaction();
+    double a1 = racquet.Area() / Area();
+    double a2 = handle.Area() / Area();
+    double a3 = shuttlecock.Area() / Area();
+    double a_rand = (double)std::rand() / ((double)RAND_MAX + 1);
+    Interaction it;
+    if (a_rand < a1){
+        it = racquet.Sample(u, pdf);
+    } else if (a_rand < a1 + a2){
+        it = handle.Sample(u, pdf);
+    } 
+    else {
+        it = shuttlecock.Sample(u, pdf);
+    }
+    *pdf = 1 / Area();
+    return it;
 }
 
 
